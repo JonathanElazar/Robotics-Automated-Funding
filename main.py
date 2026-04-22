@@ -1,9 +1,12 @@
 import sys
+import smtplib
+from email.message import EmailMessage
+from config import credentials
 
 with open("config/possible-sponsors.txt", "r") as f:
     possible_sponsors = f.read()
 
-with open("data/email-sponsors.txt", "r") as f:
+with open("data/emailed-sponsors.txt", "r") as f:
     emailed_sponsors = f.read()
 
 possible_sponsors = possible_sponsors.split("\n")
@@ -25,4 +28,23 @@ while True:
         print("Exiting")
         sys.exit(0)
 
+EMAIL = credentials.EMAIL
+PASSWORD = credentials.PASSWORD
+i = 0
+for i in range(len(email_list)):
+    sponsor_name = email_list[i].split(" :: ")[0]
+    sponsor_email = email_list[i].split(" :: ")[1]
 
+    msg = EmailMessage()
+    msg.set_content("Hello! This is a test email sent via Python.")
+    msg['Subject'] = 'Test Subject'
+    msg['From'] = EMAIL
+    msg['To'] = sponsor_email
+
+    try:
+        with smtplib.SMTP_SSL('smtp.gmail.com', 465) as server:
+            server.login(EMAIL, PASSWORD)
+            server.send_message(msg)
+        print("Email sent successfully!")
+    except Exception as e:
+        print(f"Error: {e}")
