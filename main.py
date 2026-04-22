@@ -10,10 +10,10 @@ with open("config/possible-sponsors.txt", "r") as f:
     possible_sponsors = f.read()
 
 with open("data/emailed-sponsors.txt", "r") as f:
-    emailed_sponsors = f.read()
+    _emailed_sponsors = f.read()
 
 possible_sponsors = possible_sponsors.split("\n")
-emailed_sponsors = emailed_sponsors.split("\n")
+emailed_sponsors = _emailed_sponsors.split("\n")
 email_list = []
 
 for i in range(len(possible_sponsors)):
@@ -51,3 +51,8 @@ for i in range(len(email_list)):
         print("Email sent successfully!")
     except Exception as e:
         print(f"Error: {e}")
+
+
+new_emailed_sponsors = _emailed_sponsors + "\n" + "\n".join(email_list)
+with open("data/emailed-sponsors.txt", "w") as f:
+    f.write(new_emailed_sponsors)
