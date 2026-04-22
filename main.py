@@ -40,7 +40,7 @@ for i in range(len(email_list)):
 
     msg = EmailMessage()
     msg.set_content(message_content)
-    msg['Subject'] = 'Test Subject'
+    msg['Subject'] = 'FRC Sponsorship Request'
     msg['From'] = EMAIL
     msg['To'] = sponsor_email
 
