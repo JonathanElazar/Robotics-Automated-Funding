@@ -3,6 +3,9 @@ import smtplib
 from email.message import EmailMessage
 from config import credentials
 
+with open("config/message.txt", "r") as f:
+    message_content = f.read()
+
 with open("config/possible-sponsors.txt", "r") as f:
     possible_sponsors = f.read()
 
@@ -36,7 +39,7 @@ for i in range(len(email_list)):
     sponsor_email = email_list[i].split(" :: ")[1]
 
     msg = EmailMessage()
-    msg.set_content("Hello! This is a test email sent via Python.")
+    msg.set_content(message_content)
     msg['Subject'] = 'Test Subject'
     msg['From'] = EMAIL
     msg['To'] = sponsor_email
